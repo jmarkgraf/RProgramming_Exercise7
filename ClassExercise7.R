@@ -56,3 +56,12 @@ for(i in 1:31){ # Minae - I am not sure whether we keep 1:31. However, the name_
          y = dataset$Predict.Obama[dataset[ , "Pollster"] == name_pollster[i]], col=i, pch=19)}
 
 jitter(rep(i, sum(dataset[ , "Pollster"] == name_pollster[i])), 8)
+
+# Minae - It seems to be hard to make function. The below is what I has learnt so far. 
+X<-as.factor(dataset$Population)
+X<-factor(x,levels=c("Likely Voters", "Registered Voters"))
+Y<-dataset$Predict.Obama
+Z<-cbind.data.frame(X,Y)
+plot(NULL, main = "Polls organized population", xlim=c(0,4), ylim=c(46, 54))
+points(Z$X,Z$Y,pch=19, col=Z$X)
+
