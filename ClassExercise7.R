@@ -21,7 +21,7 @@ points(y = dataset$Predict.Obama[dataset[ , "Population"] == voter_type[i]],
        x = jitter(rep(i, no_pollster[i]), 8), col = i, pch = 19)}
 
 plot(NULL, main = "Polls organized pollster", xlim=c(0,30), ylim=c(46, 54))
-for(i in 1:31){
+for(i in 1:31){ # Minae - I am not sure whether we keep 1:31. However, the name_pollster's variables are 30 so it should show 1:30 instead of :31
   name_pollster <- c("ABC/Post"                           
                      ,"AP-GfK"                              
                      ,"ARG"                                 
