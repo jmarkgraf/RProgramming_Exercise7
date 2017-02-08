@@ -16,30 +16,30 @@ plot(NULL, main = "Polls organized population", xlim=c(0,4), ylim=c(46, 54))
 
 
 for(i in 1:2){voter_type <- c("Likely Voters", "Registered Voters");  
-no_pollster <- c(75, 1)
+polling_method <- c(75, 1)
 points(y = dataset$Predict.Obama[dataset[ , "Population"] == voter_type[i]],
-       x = jitter(rep(i, no_pollster[i]), 8), col = i, pch = 19)}
+       x = jitter(rep(i, polling_method[i]), 8), col = i, pch = 19)}
 
 plot(NULL, main = "Polls organized pollster", xlim=c(0,30), ylim=c(46, 54))
-for(i in 1:31){ # Minae - I am not sure whether we keep 1:31. However, the name_pollster's variables are 30 so it should show 1:30 instead of :31
+for(i in 1:30){
   name_pollster <- c("ABC/Post"                           
-                     ,"AP-GfK"                              
-                     ,"ARG"                                 
-                     ,"Angus-Reid"                          
-                     ,"CBS"                                 
-                     ,"CBS/Times"                           
-                     ,"CNN"                                 
-                     ,"DailyKos/SEIU/PPP (D)"               
-                     ,"Democracy Corps (D)"                 
-                     ,"FOX"                                 
-                     ,"Gallup"                              
-                     ,"Gravis Marketing"                    
-                     ,"High Point University"               
-                     ,"IBD/TIPP"                            
-                     ,"Ipsos/Reuters (Web)"                 
-                     ,"JZ Analytics/Newsmax"                
-                     ,"Monmouth"                            
-                     ,"NBC/WSJ"                             
+                     , "AP-GfK"                              
+                     , "ARG"                                 
+                     , "Angus-Reid"                          
+                     , "CBS"                                 
+                     , "CBS/Times"                           
+                     , "CNN"                                 
+                     , "DailyKos/SEIU/PPP (D)"               
+                     , "Democracy Corps (D)"                 
+                     , "FOX"                                 
+                     , "Gallup"                              
+                     , "Gravis Marketing"                    
+                     , "High Point University"               
+                     , "IBD/TIPP"                            
+                     , "Ipsos/Reuters (Web)"                 
+                     , "JZ Analytics/Newsmax"                
+                     , "Monmouth"                            
+                     , "NBC/WSJ"                             
                      , "NPR"                                 
                      , "PPP (D-Americans United for Change)" 
                      , "Pew"                                 
@@ -52,16 +52,15 @@ for(i in 1:31){ # Minae - I am not sure whether we keep 1:31. However, the name_
                      , "Washington Times/JZ Analytics"       
                      , "YouGov"                              
                      , "YouGov/Economist")
-  points(x = jitter(rep(i, sum(dataset[ , "Pollster"] == name_pollster[i])), 8), 
+  points(rep(i, sum(dataset[ , "Pollster"] == name_pollster[i])),  # deleted 'jitter()', because not needed here
          y = dataset$Predict.Obama[dataset[ , "Pollster"] == name_pollster[i]], col=i, pch=19)}
-
-jitter(rep(i, sum(dataset[ , "Pollster"] == name_pollster[i])), 8)
 
 # Minae - It seems to be hard to make function. The below is what I has learnt so far. 
 X<-as.factor(dataset$Population)
 X<-factor(x,levels=c("Likely Voters", "Registered Voters"))
 Y<-dataset$Predict.Obama
 Z<-cbind.data.frame(X,Y)
-plot(NULL, main = "Polls organized population", xlim=c(0,4), ylim=c(46, 54))
+plot(NULL, main = "Polls organized population", xlim=c(0,4), ylim=c(46, 54))  # doesn't this replicate what we did in task 1?
 points(Z$X,Z$Y,pch=19, col=Z$X)
+
 
