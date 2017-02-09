@@ -11,16 +11,23 @@
 stuff <- url("http://pages.wustl.edu/montgomery/polls2012.txt")
 dataset <- read.csv(stuff)
 
+## 1) Function: Poll results by Polling Method -----------
+
 # create empty plot
 plot(NULL, main = "Polls organized population", xlim=c(0,4), ylim=c(46, 54))
 
-
+# loop over two different polling methods and plot poll results by polling method
 for(i in 1:2){voter_type <- c("Likely Voters", "Registered Voters");  
 polling_method <- c(75, 1)
 points(y = dataset$Predict.Obama[dataset[ , "Population"] == voter_type[i]],
        x = jitter(rep(i, polling_method[i]), 8), col = i, pch = 19)}
 
+## 2) Function: Poll results by Pollster -----------
+
+# create empty plot
 plot(NULL, main = "Polls organized pollster", xlim=c(0,30), ylim=c(46, 54))
+
+# loop over the 30 different pollsters and plot the results by pollster
 for(i in 1:30){
   name_pollster <- c("ABC/Post"                           
                      , "AP-GfK"                              
@@ -52,10 +59,10 @@ for(i in 1:30){
                      , "Washington Times/JZ Analytics"       
                      , "YouGov"                              
                      , "YouGov/Economist")
-  points(rep(i, sum(dataset[ , "Pollster"] == name_pollster[i])),  # deleted 'jitter()', because not needed here
+  points(x= rep(i, sum(dataset[ , "Pollster"] == name_pollster[i])),  # deleted 'jitter()', because noise not needed
          y = dataset$Predict.Obama[dataset[ , "Pollster"] == name_pollster[i]], col=i, pch=19)}
 
-# Minae - It seems to be hard to make function. The below is what I has learnt so far. 
+# Minae - It seems to be hard to make function. The below is what I has learnt so far.  -----
 X<-as.factor(dataset$Population)
 X<-factor(x,levels=c("Likely Voters", "Registered Voters"))
 Y<-dataset$Predict.Obama
@@ -64,3 +71,34 @@ plot(NULL, main = "Polls organized population", xlim=c(0,4), ylim=c(46, 54))  # 
 points(Z$X,Z$Y,pch=19, col=Z$X)
 
 
+
+
+## 3) Functionalizing this to work with other variables ------------
+
+# function
+poll_predictions <- function(x) {
+  
+  # Function name: poll_predictions()
+  # Purpose: generic function to plot poll predictions over different variables
+  # Function: 
+  ##   1) defines parameters for plot ("length(unique(x))")
+  ##   2) applies the function over unique values in x vector
+  ##   3) plots points with y being predicted probability of winning the election for Obama
+  # Args:
+  ##  x: vector in "dataset"; needs to be entered as "dataset$[VECTOR]"
+  # Author: Jonas Markgraf
+  
+  plot(NULL, xlim=c(0,length(unique(x))), ylim=c(46, 54), 
+       ylab = "predicted probability of winning for Obama (%)")
+  for(i in 1:length(unique(x))) {
+    reference <- unique(x)
+    points(x = rep(i, sum(x == reference[i])),
+           y = dataset$Predict.Obama[x == reference[i]], col=i, pch=19)
+  }
+}
+
+# testing function
+poll_predictions(dataset$Population)
+poll_predictions(dataset$Pollster)
+poll_predictions(dataset$Mode)
+poll_predictions(dataset$End.Date)
