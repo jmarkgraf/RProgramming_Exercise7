@@ -14,7 +14,9 @@ dataset <- read.csv(stuff)
 ## 1) Function: Poll results by Polling Method -----------
 
 # create empty plot
-plot(NULL, main = "Polls organized population", xlim=c(0,4), ylim=c(46, 54))
+plot(NULL, main = "Polls organized population", 
+     xlim=c(0,4), ylim=c(46, 54), 
+     ylab = "Predicted probability of voting for Obama", xlab = "Voter type")
 
 # loop over two different polling methods and plot poll results by polling method
 for(i in 1:2){voter_type <- c("Likely Voters", "Registered Voters");  
@@ -25,41 +27,44 @@ points(y = dataset$Predict.Obama[dataset[ , "Population"] == voter_type[i]],
 ## 2) Function: Poll results by Pollster -----------
 
 # create empty plot
-plot(NULL, main = "Polls organized pollster", xlim=c(0,30), ylim=c(46, 54))
+plot(NULL, main = "Polls organized pollster", 
+     xlim=c(0,30), ylim=c(46, 54), 
+     ylab = "Predicted probability of voting for Obama (%)", xlab = "Pollsters")
 
 # loop over the 30 different pollsters and plot the results by pollster
 for(i in 1:30){
-  name_pollster <- c("ABC/Post"                           
-                     , "AP-GfK"                              
-                     , "ARG"                                 
-                     , "Angus-Reid"                          
-                     , "CBS"                                 
-                     , "CBS/Times"                           
-                     , "CNN"                                 
-                     , "DailyKos/SEIU/PPP (D)"               
-                     , "Democracy Corps (D)"                 
-                     , "FOX"                                 
-                     , "Gallup"                              
-                     , "Gravis Marketing"                    
-                     , "High Point University"               
-                     , "IBD/TIPP"                            
-                     , "Ipsos/Reuters (Web)"                 
-                     , "JZ Analytics/Newsmax"                
-                     , "Monmouth"                            
-                     , "NBC/WSJ"                             
-                     , "NPR"                                 
-                     , "PPP (D-Americans United for Change)" 
-                     , "Pew"                                 
-                     , "Politico/GWU/Battleground"           
-                     , "Purple Strategies"                   
-                     , "Rasmussen"                           
-                     , "UConn/Hartford Courant"              
-                     , "UPI/CVOTER"                          
-                     , "United Technologies/National Journal"
-                     , "Washington Times/JZ Analytics"       
-                     , "YouGov"                              
-                     , "YouGov/Economist")
-  points(x= rep(i, sum(dataset[ , "Pollster"] == name_pollster[i])),  # deleted 'jitter()', because noise not needed
+  name_pollster <- c("ABC/Post",                           
+                     "AP-GfK",                              
+                     "ARG",                                 
+                     "Angus-Reid",                          
+                     "CBS",                                 
+                     "CBS/Times",                           
+                     "CNN",                                 
+                     "DailyKos/SEIU/PPP (D)",               
+                     "Democracy Corps (D)",                 
+                     "FOX",                                 
+                     "Gallup",                              
+                     "Gravis Marketing",                    
+                     "High Point University",               
+                     "IBD/TIPP",                            
+                     "Ipsos/Reuters (Web)",                 
+                     "JZ Analytics/Newsmax",                
+                     "Monmouth",                            
+                     "NBC/WSJ",                             
+                     "NPR",                                 
+                     "PPP (D-Americans United for Change)", 
+                     "Pew",                                 
+                     "Politico/GWU/Battleground",           
+                     "Purple Strategies",                   
+                     "Rasmussen",                           
+                     "UConn/Hartford Courant",              
+                     "UPI/CVOTER",                          
+                     "United Technologies/National Journal",
+                     "Washington Times/JZ Analytics",     
+                     "YouGov",                              
+                     "YouGov/Economist")
+  points(x= rep(i, sum(dataset[ , "Pollster"] == name_pollster[i])),  
+         # deleted 'jitter()', because noise not needed
          y = dataset$Predict.Obama[dataset[ , "Pollster"] == name_pollster[i]], col=i, pch=19)}
 
 # Minae - It seems to be hard to make function. The below is what I has learnt so far.  -----
