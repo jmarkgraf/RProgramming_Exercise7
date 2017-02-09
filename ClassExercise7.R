@@ -76,7 +76,7 @@ points(Z$X,Z$Y,pch=19, col=Z$X)
 ## 3) Functionalizing this to work with other variables ------------
 
 # function
-poll_predictions <- function(x) {
+poll_predictions <- function(x, depvar = dataset$Predict.Obama) {
   
   # Function name: poll_predictions()
   # Purpose: generic function to plot poll predictions over different variables
@@ -88,12 +88,11 @@ poll_predictions <- function(x) {
   ##  x: vector in "dataset"; needs to be entered as "dataset$[VECTOR]"
   # Author: Jonas Markgraf
   
-  plot(NULL, xlim=c(0,length(unique(x))), ylim=c(46, 54), 
-       ylab = "predicted probability of winning for Obama (%)")
+  plot(NULL, xlim=c(0,length(unique(x))), ylim=c(46, 54))
   for(i in 1:length(unique(x))) {
     reference <- unique(x)
     points(x = rep(i, sum(x == reference[i])),
-           y = dataset$Predict.Obama[x == reference[i]], col=i, pch=19)
+           y = depvar[x == reference[i]], col=i, pch=19)
   }
 }
 
