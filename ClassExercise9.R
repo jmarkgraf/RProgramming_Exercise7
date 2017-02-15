@@ -4,7 +4,8 @@
 # -------------------------------
 
 
-# students
+# 1) students --------------------
+
 funcStudent <- function(name) {
   student <- list(name, courage = sample(x = 1:100, size = 1), ambition = sample(1:100, 1),
                   intelligence = sample(1:100, 1), effort = sample(1:100, 1))
@@ -12,15 +13,26 @@ funcStudent <- function(name) {
   print(student)
 }
 
-Jonas <- unlist(funcStudent("Jonas"))
+Harry <- funcStudent("Harry Potter")
 
-matrix(Jonas[2:5], nrow = 1, colnames = names(Jonas[2:5]))
-# sorter
+# 2) sorter ----------------------
 
-sorter <- function(student_name, my_matrix) {
-  a <- unlist(student_name)[2:5]
-  Xt <- t(my_matrix)
-  vect <- Xt * t
+# different ways to unlist
+a <- matrix(Harry[2:5], ncol = 1, dimnames = list(names(Harry[2:5])))
+b <- unlist(Harry)[2:5]
+
+# function
+sorter <- function(student_name, my_matrix) {   # question: how does "my_matrix" help us? what's its role?
+  a <- unlist(student_name)[2:5]  # we need to incorporate step 1 here: calculate t(X)*a
+  if(max(a) == a[1]) {
+    print("GRIFFINDOR!")
+  } else if(max(a) == a[2]) {
+    print("SLYTHERIN!")
+  } else if(max(a) == a[3]) {
+    print("RAVENCLAW!")
+  } else {
+    print("HUFFLEPUFF!")
+  }
 }
 
-sorter(Jonas)
+sorter(Harry)
