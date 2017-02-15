@@ -24,6 +24,7 @@ b <- unlist(Harry)[2:5]
 # function
 sorter <- function(student_name, my_matrix) {   # question: how does "my_matrix" help us? what's its role?
   a <- unlist(student_name)[2:5]  # we need to incorporate step 1 here: calculate t(X)*a
+  # vect1 <- a %*% t(my_matrix)  # code for multiplying 'a' with transposed matrix
   if(max(a) == a[1]) {
     print("GRIFFINDOR!")
   } else if(max(a) == a[2]) {
