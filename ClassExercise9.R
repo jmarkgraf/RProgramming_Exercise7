@@ -17,19 +17,22 @@ Harry <- funcStudent("Harry Potter")
 
 # 2) sorter ----------------------
 
+my_matrix <- matrix(sample(1:100, 16), nrow = 4, ncol = 4)
+
 # different ways to unlist
-a <- matrix(Harry[2:5], ncol = 1, dimnames = list(names(Harry[2:5])))
+a <- unlist(matrix(Harry[2:5], ncol = 1, dimnames = list(names(Harry[2:5]))))
 b <- unlist(Harry)[2:5]
 
 # function
-sorter <- function(student_name, my_matrix) {   # question: how does "my_matrix" help us? what's its role?
-  a <- unlist(student_name)[2:5]  # we need to incorporate step 1 here: calculate t(X)*a
-  # vect1 <- a %*% t(my_matrix)  # code for multiplying 'a' with transposed matrix
-  if(max(a) == a[1]) {
+sorter <- function(student_name, my_matrix = diag(4)) {
+  a <- unlist(matrix(student_name[2:5], ncol = 1, dimnames = list(names(student_name[2:5]))))
+  vect1 <- a %*% t(my_matrix)
+  print(sort(vect1, decreasing = T))
+  if(max(vect1) == vect1[1]) {
     print("GRIFFINDOR!")
-  } else if(max(a) == a[2]) {
+  } else if(max(vect1) == vect1[2]) {
     print("SLYTHERIN!")
-  } else if(max(a) == a[3]) {
+  } else if(max(vect1) == vect1[3]) {
     print("RAVENCLAW!")
   } else {
     print("HUFFLEPUFF!")
@@ -37,3 +40,10 @@ sorter <- function(student_name, my_matrix) {   # question: how does "my_matrix"
 }
 
 sorter(Harry)
+
+# my questions:
+## - what is the role of "my_matrix"? 
+### - where does the matrix come from? I set it to the identity matrix by default...
+### - why do we need to multiply it with "a"?
+## - we didn't use the "sort" function yet although we were supposed to do that...
+## - 
