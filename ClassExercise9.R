@@ -134,16 +134,14 @@ ls(Gryffindor_Tower)
 # basic structure
 eval(parse(text=thisCall), envir = globalenv())
 
-# test examples
-parse(text = class(Harry))
-eval(parse(text = class(Harry)))  # need to write functions for "student" and houses
-
-
-argus_filch <- function() {
-  student <- function(x){
-    curfew(x)
+# Jeong's solution
+argus_filch <- function(){
+  for(i in ls(envir=globalenv())){  # apply to all i in globalenvir
+    obj <- get(i, envir=globalenv())  # collect all i in globalenvir
+    if("student" %in% class(obj)){  # apply function "curfew" to all object with class "student"
+      eval(parse(text=paste0("curfew(", i, ")")), envir=globalenv())  # I don't fully get this part.
+    }
   }
-  
 }
 
 # failed attempts
